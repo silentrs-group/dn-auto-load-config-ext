@@ -3,8 +3,6 @@
 namespace behaviour\custom;
 
 
-use Error;
-use ide\Logger;
 use php\gui\framework\behaviour\custom\AbstractBehaviour;
 use php\io\FileStream;
 use php\io\MemoryStream;
@@ -53,7 +51,7 @@ class AutoloadConfigBehaviour extends AbstractBehaviour
             $stream = new FileStream($this->preparedConfigPath());
 
             foreach ($this->instances as $modify) {
-                $stream = $modify->onRead($stream);
+                $stream = $modify->onRead((string) $stream);
             }
 
             $this->_target->getConfig()->load($stream);
@@ -66,13 +64,15 @@ class AutoloadConfigBehaviour extends AbstractBehaviour
 
         $memoryStream = new MemoryStream();
         $this->_target->getConfig()->save($memoryStream);
+        $memoryStream->seek(0);
 
         foreach ($this->instances as $modify) {
-            $memoryStream = $modify->onWrite($memoryStream);
+            $memoryStream = $modify->onWrite((string) $memoryStream);
         }
 
-        $outputStream = new FileStream($this->preparedConfigPath(), "w");
+        $outputStream = new FileStream($this->preparedConfigPath(), "w+");
         $outputStream->write($memoryStream);
+        $outputStream->close();
     }
 
     private function preparedConfigPath(): string
