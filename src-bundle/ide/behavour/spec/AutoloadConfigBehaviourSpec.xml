@@ -1,0 +1,6 @@
+<behaviour extends="BehaviourSpec">
+    <properties>
+        <property name="Путь" code="configPath" editor="text" tooltip="Путь для сохранения файла"/>
+        <property name="Класс" code="classes" editor="classes" tooltip=""/>
+    </properties>
+</behaviour>

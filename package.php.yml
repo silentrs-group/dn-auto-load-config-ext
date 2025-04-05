@@ -1,0 +1,17 @@
+name: dn-auto-load-config-ext
+version: 1.0.0
+deps:
+  jphp-core: '*'
+  jphp-zend-ext: '*'
+devDeps:
+  dn-bundle-plugin: '*'
+sources:
+  - src
+develnext-bundle:
+  version: '%version%'
+  name: '%name%'
+  author: silentrs
+  icon: develnext/bundle/autoloadconfig/icon32.png
+  description: Bundle added behaviour auto-load\save config
+  group: Other
+  class: develnext\bundle\autoloadconfig\AutoloadConfigBundle
